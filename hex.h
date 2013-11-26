@@ -52,9 +52,8 @@ class Player
    playertype type;                                 // the type of player (human, computer, ai)
 
  public:
-   Player();
+   Player(unsigned int player_index);
    virtual movevalue makeMove() = 0;                // pure virtual function for making a move
-   void setPlayerIndex(unsigned int player_index);
    unsigned int getPlayerIndex();
 
 };
@@ -69,7 +68,7 @@ protected:
 public:
    HexPlayer(const playercolor color, const hexGame board );
    nodecolor getPlayerColor();
-   virtual movevalue makeMove();                   // makes a move appropriate to this player and returns the value
+   virtual movevalue makeMove() = 0;               // pure virtual move function
    
 };
 
