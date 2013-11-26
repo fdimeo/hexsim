@@ -18,7 +18,7 @@ typedef unsigned int movevalue;   // the resultant value of a generic move (rang
 
 class minimax {
  private:
-   Graph &tree;                    // the minimax tree to use in this class.
+   Graph tree;                    // the minimax tree instance to use in this class.
 
  public:
    minimax();                                            // class constructor
@@ -35,7 +35,7 @@ class hexGame {
    const Graph *pGameboard;       // a pointer to the playing board itself
 
  public:
-   hexGame(unsigned int size);
+   hexGame(unsigned int boardsize);
    ~hexGame();    // destructor to free up allocated resources 
    bool makeMove(unsigned int col, unsigned int row);    // returns true if move was good
    bool isMoveLegal(unsigned int col, unsigned int row);  // returns true if move is legal
@@ -63,10 +63,10 @@ class HexPlayer:public Player
 {
 protected:
    const playercolor playerColor;                  // playercolor::RED or playercolor::BLUE
-   const hexGame *pGameBoard;                      // a pointer to the gameboard
+   const hexGame &GameBoard;                       // a reference to the gameboard being used in this game
 
 public:
-   HexPlayer(const playercolor color, const hexGame board );
+   HexPlayer(const playercolor color, const hexGame &board );
    nodecolor getPlayerColor();
    virtual movevalue makeMove() = 0;               // pure virtual move function
    
@@ -77,7 +77,7 @@ class ComputerHexPlayer:public HexPlayer
 {
 
  public:
-   ComputerHexPlayer(const playercolor color, const hexGame board );
+   ComputerHexPlayer(const playercolor color, const hexGame &board );
    virtual movevalue makeMove();       // makes a move appropriate for a computer player and returns the value
    
 };
@@ -87,7 +87,7 @@ class HumanHexPlayer:public HexPlayer
 {
 
  public:
-   HumanHexPlayer(const playercolor color, const hexGame board);
+   HumanHexPlayer(const playercolor color, const hexGame &board);
    virtual movevalue makeMove();       // makes a move appropriate for a human player and returns the value
    
 };
