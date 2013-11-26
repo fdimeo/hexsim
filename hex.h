@@ -16,11 +16,23 @@ typedef nodecolor playercolor;    // the node colors are also the player colors
 typedef unsigned int movevalue;   // the resultant value of a generic move (range is 0-worst to 100-best)
 
 
+class minimax {
+ private:
+   Graph &tree;                    // the minimax tree to use in this class.
+
+ public:
+   minimax();                                            // class constructor
+   void addNode(unsigned int NodeNumber);
+   void connectToNode(unsigned int srcNodeNumber, unsigned int destNodeNumber);  // connects two nodes together
+   unsigned int operator()(unsigned int topNodeNumber);  // run the algorigthm itself from the top node, return the value found
+};
+
+
 class hexGame {
 
  private:
-   unsigned int boardsize;  // the size of the hex playing board
-   Graph *pGameboard;       // the playing board itself
+   const unsigned int boardsize;  // the size of the hex playing board
+   const Graph *pGameboard;       // a pointer to the playing board itself
 
  public:
    hexGame(unsigned int size);
@@ -28,7 +40,6 @@ class hexGame {
    bool makeMove(unsigned int col, unsigned int row);    // returns true if move was good
    bool isMoveLegal(unsigned int col, unsigned int row);  // returns true if move is legal
    unsigned int evaluateMove(unsigned int col, unsigned int row, Player &p); // returns value of move for player p
-   
 
 };
 
